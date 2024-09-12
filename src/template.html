@@ -8,8 +8,13 @@
   <body>
     <main>
       <section>
-        <div></div>
-        <button type="button" data-function="open-project-create">ADD PROJECT</button>
+        <div id="projects">
+          <div>
+            <button>PROJECT NAME</button>
+            <button type="button">X</button>
+          </div>
+        </div>
+        <button type="button" data-function="open-project-dialog">ADD PROJECT</button>
       </section>
       <section>
         <ul>
@@ -22,37 +27,37 @@
           </li>
         </ul>
       </section>
-      <button type="button" data-function="open-task-create"> ADD TASK</button>
+      <button type="button" data-function="open-task-dialog"> ADD TASK</button>
     </main>
     <dialog id="project-form">
         <form>
           <span>
             <h2>NEW PROJECT</h2>
-            <button type="button" data-function="close-project-create">X</button>
+            <button type="button" data-function="close-project-dialog">X</button>
           </span>
           <input type="text" placeholder="PROJECT NAME">
-          <button type="button">ADD!</button>
+          <button type="button" data-function="create-project">ADD!</button>
         </form>
     </dialog>
     <dialog id="task-form">
         <div>
             <h2>NEW TASK</h2>
-            <button type="button" data-function="close-task-create">X</button>
+            <button type="button" data-function="close-task-dialog">X</button>
         </div>
         <form>
-            <label for="task-name">Task Name</label>
-            <input type="text" name="task-name">
-            <label for="description">Description</label>
-            <textarea name="description"></textarea>
+            <label for="task-name">Title</label>
+            <input type="text" name="task-title">
             <label for="due-date">Due Date</label>
             <input type="date" name="due-date">
             <label for="priority">Priority</label>
             <select name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
             </select>
-            <button type="button">ADD</button>
+            <label for="notes">Notes</label>
+            <textarea name="notes"></textarea>
+            <button type="button" data-function="create-task">ADD</button>
         </form>
       </dialog>
       <dialog id="task-details">
