@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div></div>
+        <button type="button" data-function="open-project-create">ADD PROJECT</button>
+      </section>
+      <section>
+        <ul>
+          <li>
+            <button type="button">CHECK</button>
+            <p>TASK NAME</p>
+            <span>DUE DATE</span>
+            <button type="button" data-function="open-task-details">INFO</button>
+            <button type="button">REMOVE</button>
+          </li>
+        </ul>
+      </section>
+      <button type="button" data-function="open-task-create"> ADD TASK</button>
+    </main>
+    <dialog id="project-form">
+        <form>
+          <span>
+            <h2>NEW PROJECT</h2>
+            <button type="button" data-function="close-project-create">X</button>
+          </span>
+          <input type="text" placeholder="PROJECT NAME">
+          <button type="button">ADD!</button>
+        </form>
+    </dialog>
+    <dialog id="task-form">
+        <div>
+            <h2>NEW TASK</h2>
+            <button type="button" data-function="close-task-create">X</button>
+        </div>
+        <form>
+            <label for="task-name">Task Name</label>
+            <input type="text" name="task-name">
+            <label for="description">Description</label>
+            <textarea name="description"></textarea>
+            <label for="due-date">Due Date</label>
+            <input type="date" name="due-date">
+            <label for="priority">Priority</label>
+            <select name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <button type="button">ADD</button>
+        </form>
+      </dialog>
+      <dialog id="task-details">
+        <h1>TASK DETAILS</h1>
+        <button type="button" data-function="close-task-details">X</button>
+        <ul>
+          <li>
+            <h3>TASK NAME</h3>
+            <p>DUE DATE</p>
+            <p>PRIORITY</p>
+            <p>STATUS</p>
+            <p>DETAILS</p>
+          </li>
+        </ul>
+      </dialog>
+  </body>
+</html>
