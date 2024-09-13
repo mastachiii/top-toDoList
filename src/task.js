@@ -4,10 +4,8 @@ class Task {
 
         const [title, dueDate, priority, notes] = taskInfo;
 
-        return { title, dueDate, priority, status: 'Not Done', notes };
+        return { title, dueDate, priority, status:'Not Done', notes };
     }
-
-    markTaskAsDone() { this.status =  'Done' }
 }
 
 export { Task };

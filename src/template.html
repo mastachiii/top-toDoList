@@ -9,22 +9,11 @@
     <main>
       <section>
         <div id="projects">
-          <div>
-            <button>PROJECT NAME</button>
-            <button type="button">X</button>
-          </div>
         </div>
         <button type="button" data-function="open-project-dialog">ADD PROJECT</button>
       </section>
       <section>
-        <ul>
-          <li>
-            <button type="button">CHECK</button>
-            <p>TASK NAME</p>
-            <span>DUE DATE</span>
-            <button type="button" data-function="open-task-details">INFO</button>
-            <button type="button">REMOVE</button>
-          </li>
+        <ul id="tasks">
         </ul>
       </section>
       <button type="button" data-function="open-task-dialog"> ADD TASK</button>
@@ -60,18 +49,7 @@
             <button type="button" data-function="create-task">ADD</button>
         </form>
       </dialog>
-      <dialog id="task-details">
-        <h1>TASK DETAILS</h1>
-        <button type="button" data-function="close-task-details">X</button>
-        <ul>
-          <li>
-            <h3>TASK NAME</h3>
-            <p>DUE DATE</p>
-            <p>PRIORITY</p>
-            <p>STATUS</p>
-            <p>DETAILS</p>
-          </li>
-        </ul>
-      </dialog>
+      <div id="task-info">
+      </div>
   </body>
 </html>
