@@ -11,14 +11,14 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         clean: true,
-        // assetModuleFileName: '[name] [ext]'
+        assetModuleFilename: '[name][ext]'
     },
     devtool: 'source-map',
     devServer: {
         static: {
             directory: path.resolve(__dirname, 'dist')
         },
-        port: 2500,
+        port: 3220,
         open: 'firefox',
         hot: true,
         compress: true,
@@ -31,7 +31,7 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader']
             },
             {
-                test: /\.(png | svg | jpeg | jpg | gif)$/i,
+                test: /\.(png|svg|jpeg|jpg|gif)$/i,
                 type: 'asset/resource'
             }
         ]

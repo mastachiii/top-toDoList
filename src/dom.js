@@ -1,15 +1,17 @@
 import { format } from 'date-fns';
+import { PROJECTS } from './project';
 
 const DOM = {
 
     getTaskInfo() {
-        const title = document.querySelector('input[name = task-title]').value
-                , dueDate = format(document.querySelector('input[name = due-date]').value, 'MM/dd/yyyy')
-                , priority = document.querySelector('select').value
-                , notes = document.querySelector('textarea').value
-                , taskInfo = [title, dueDate, priority, notes];
+        const title = document.querySelector('input[name = task-title]')
+                , dueDate = document.querySelector('input[name = due-date]')
+                , priority = document.querySelector('select')
+                , notes = document.querySelector('textarea')
+                , taskInfo = [title.value, dueDate.value, priority.value, notes.value];
 
-        if (!taskInfo.includes('')) return taskInfo;
+        if (!taskInfo.includes('')){ format(dueDate.value, 'MM/dd/yyyy'); return taskInfo }; // date-fns format mutates the dueDate even if it's a constant variable ??
+
     },
 
     updateProjects(projects) {
@@ -23,12 +25,11 @@ const DOM = {
                     , removeProjectButton = document.createElement('button');
 
             name.textContent = project.name;
-            removeProjectButton.textContent = 'X';
             
             projectContainer.setAttribute('project-index', index);
             name.setAttribute('data-function', 'switch-project');
             removeProjectButton.setAttribute('data-function', 'remove-project');
-
+            
             projectContainer.append(name, removeProjectButton);
             projectsContainer.append(projectContainer);
         })
@@ -46,9 +47,6 @@ const DOM = {
                     , removeTaskButton = document.createElement('button') 
                     , title = document.createElement('p')
 
-            checkTaskButton.textContent = 'CHECK';
-            checkTaskInfoButton.textContent = 'INFO';
-            removeTaskButton.textContent = 'REMOVE'; 
             title.textContent = task.title;
 
             taskContainer.setAttribute('task-index', index);
@@ -56,7 +54,7 @@ const DOM = {
             removeTaskButton.setAttribute('data-function', 'remove-task');
             checkTaskInfoButton.setAttribute('data-function', 'check-task-info');
 
-            if (task.status === 'Done') taskContainer.style.backgroundColor = 'green';
+            if (task.status === 'Done') taskContainer.style.backgroundColor = '#65a30d';
                         
             taskContainer.append(checkTaskButton, title, checkTaskInfoButton, removeTaskButton);
             tasksContainer.append(taskContainer);
@@ -72,29 +70,30 @@ const DOM = {
 
         tasks.forEach( (task, index) => {
             const taskInfo = document.createElement('dialog')
+                    , taskHeaderContainer = document.createElement('div')
                     , taskHeader = document.createElement('h1')
                     , closeTaskInfoButton = document.createElement('button')
                     , taskInfoUl = document.createElement('ul')
                     , taskInfoLi = document.createElement('li')
-                    , name = document.createElement('h3')
+                    , name = document.createElement('p')
                     , dueDate = document.createElement('p')
                     , priority = document.createElement('p')
                     , status = document.createElement('p')
                     , notes = document.createElement('p');
 
             taskHeader.textContent = 'TASK DETAILS';
-            closeTaskInfoButton.textContent = 'X';
-            name.textContent = task.title;
-            dueDate.textContent = format(task.dueDate, 'MMMM dd,yyyy');
-            priority.textContent = task.priority;
-            status.textContent = task.status;
-            notes.textContent = task.notes;
+            name.innerHTML = `<em>Title:</em> ${task.title}`;
+            dueDate.innerHTML = `<em>Date:</em> ${format(task.dueDate, 'MMMM dd,yyyy')}`;
+            priority.innerHTML = `<em>Priority:</em> ${task.priority}`;
+            status.innerHTML = `<em>Status:</em> ${task.status}`;
+            notes.innerHTML = `<em>Notes:</em> ${task.notes}`;
 
             taskInfo.setAttribute('task-info-index', index);
 
             taskInfoLi.append(name, dueDate, priority, status, notes);
             taskInfoUl.append(taskInfoLi);
-            taskInfo.append(taskHeader, closeTaskInfoButton, taskInfoUl);
+            taskHeaderContainer.append(taskHeader, closeTaskInfoButton);
+            taskInfo.append(taskHeaderContainer, taskInfoUl);
             taskInfoContainer.append(taskInfo);
         } );
     }

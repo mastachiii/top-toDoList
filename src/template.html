@@ -8,48 +8,47 @@
   <body>
     <main>
       <section>
-        <div id="projects">
-        </div>
-        <button type="button" data-function="open-project-dialog">ADD PROJECT</button>
+        <div id="projects"></div>
+        <button type="button" data-function="open-project-dialog"></button>
       </section>
       <section>
-        <ul id="tasks">
-        </ul>
+        <ul id="tasks"></ul>
       </section>
-      <button type="button" data-function="open-task-dialog"> ADD TASK</button>
+      <button type="button" data-function="open-task-dialog"></button>
     </main>
     <dialog id="project-form">
-        <form>
-          <span>
-            <h2>NEW PROJECT</h2>
-            <button type="button" data-function="close-project-dialog">X</button>
-          </span>
-          <input type="text" placeholder="PROJECT NAME">
-          <button type="button" data-function="create-project">ADD!</button>
-        </form>
+      <form>
+        <div>
+          <p>NEW PROJECT</p>
+          <button type="button" data-function="close-project-dialog"></button>
+        </div>
+          <div>
+            <input type="text" placeholder="Project Name" />
+            <button type="button" data-function="create-project"></button>
+          </div>
+      </form>
     </dialog>
     <dialog id="task-form">
-        <div>
-            <h2>NEW TASK</h2>
-            <button type="button" data-function="close-task-dialog">X</button>
-        </div>
-        <form>
-            <label for="task-name">Title</label>
-            <input type="text" name="task-title">
-            <label for="due-date">Due Date</label>
-            <input type="date" name="due-date">
-            <label for="priority">Priority</label>
-            <select name="priority">
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-            <label for="notes">Notes</label>
-            <textarea name="notes"></textarea>
-            <button type="button" data-function="create-task">ADD</button>
-        </form>
-      </dialog>
-      <div id="task-info">
+      <div>
+        <h2>NEW TASK</h2>
+        <button type="button" data-function="close-task-dialog"></button>
       </div>
+      <form>
+        <label for="task-name">Title</label>
+        <input type="text" name="task-title" />
+        <label for="due-date">Due Date</label>
+        <input type="date" name="due-date" />
+        <label for="priority">Priority</label>
+        <select name="priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <label for="notes">Notes</label>
+        <textarea name="notes" rows="10" autocorrect="off"></textarea>
+        <button type="button" data-function="create-task"></button>
+      </form>
+    </dialog>
+    <div id="task-info"></div>
   </body>
 </html>

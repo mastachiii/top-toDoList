@@ -4,10 +4,10 @@ import { PROJECTS } from "./project.js";
 import { List } from "./list.js";
 import { Task } from "./task.js";
 import { DOM } from "./dom.js";
+import { id } from "date-fns/locale";
+// import './assets/icons/add-project.svg'
 
 (function init() {
-
-
     // Dialog Event Listeners
     const body = document.body
 
@@ -50,11 +50,12 @@ import { DOM } from "./dom.js";
     const createProjectButton = document.querySelector('button[data-function = create-project]');
 
     createProjectButton.addEventListener('click', () => {
-        const projectName = document.querySelector('#project-form > form > input').value;
+        const projectName = document.querySelector('#project-form > form > div:nth-child(2) > input');
 
-        if (!projectName) return; // Prevents user from creating a project with no name.
+        if (!projectName.value) return; // Prevents user from creating a project with no name.
 
-        PROJECTS.addProject( new List(projectName) );
+        PROJECTS.addProject( new List(projectName.value) );
+        projectName.value = '';
         DOM.updateProjects(PROJECTS.lists);
         localStorage.projects = JSON.stringify(PROJECTS.lists);
     });
@@ -63,11 +64,14 @@ import { DOM } from "./dom.js";
         const buttonAttribute = e.target.getAttribute('data-function')
                 , projectIndex = e.target.parentElement.getAttribute('project-index')
                 , currentProject = PROJECTS.lists[projectIndex]
-                , taskContainer = document.querySelector('ul');
+                , taskContainer = document.querySelector('ul')
+                , buttons = document.querySelectorAll('button');
 
         switch (buttonAttribute){
             case 'switch-project':
-                PROJECTS.activeProjectIndex = projectIndex
+                PROJECTS.activeProjectIndex = projectIndex;
+                buttons.forEach( (button) => { if (button.getAttribute('id')) button.removeAttribute('id') } ); // Removes the active class for every project switch.
+                e.target.setAttribute('id', 'project-active');
                 DOM.updateTasks(currentProject.tasks);
                 break;
 
@@ -82,17 +86,19 @@ import { DOM } from "./dom.js";
     });
 
     // Restore previous session 
-    PROJECTS.lists = JSON.parse(localStorage.projects);
+    if (localStorage.projects) PROJECTS.lists = JSON.parse(localStorage.projects);
     PROJECTS.lists.forEach( (list) => { Object.setPrototypeOf(list, List.prototype); })
     
     DOM.updateProjects(PROJECTS.lists);
-    DOM.updateTasks(PROJECTS.lists[0].tasks);
 
     // Task Functionality 
     const createTaskButton = document.querySelector('button[data-function = create-task]');
+
     createTaskButton.addEventListener('click', () => {
         const currentProject = PROJECTS.lists[PROJECTS.activeProjectIndex]
                 , taskInfo = DOM.getTaskInfo();
+        
+        console.log(taskInfo);
         
         if (taskInfo) currentProject.addTask( new Task( taskInfo ) );
 
@@ -105,11 +111,11 @@ import { DOM } from "./dom.js";
                 , buttonAttribute = e.target.getAttribute('data-function')
                 , taskIndex = e.target.parentElement.getAttribute('task-index')
                 , taskDialog = document.querySelector(`dialog[task-info-index = "${taskIndex}"]`)
-                , taskDialogCloseButton = document.querySelector(`dialog[task-info-index = "${taskIndex}"] > button`);
+                , taskDialogCloseButton = document.querySelector(`dialog[task-info-index = "${taskIndex}"] > div > button`);
 
         switch (buttonAttribute){
             case 'mark-task-as-done':
-                currentProject.tasks[taskIndex].status = 'Done';
+                currentProject.tasks[taskIndex].status = currentProject.tasks[taskIndex].status === 'Done' ? 'Not Done' : 'Done';
                 DOM.updateTasks(currentProject.tasks);
                 localStorage.projects = JSON.stringify(PROJECTS.lists);
                 break;
